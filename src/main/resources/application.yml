@@ -1,19 +1,36 @@
 spring.profiles.active: develop
+
+# Common configuration for all profiles
+logging:
+  level:
+    org.springframework.data.mongodb: DEBUG
+    com.playtomic.tests.wallet: DEBUG
+
 server:
   port: 8090
+
 ---
 spring.config.activate.on-profile: develop
 spring:
-  data.mongodb:
-    uri: mongodb://localhost:27017/playtomic
-stripe.simulator.charges-uri: https://sandbox.playtomic.io/v1/stripe-simulator/charges
-stripe.simulator.refunds-uri: https://sandbox.playtomic.io/v1/stripe-simulator/payments/{payment_id}/refunds
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/playtomic
+
+stripe:
+  simulator:
+    charges-uri: https://sandbox.playtomic.io/v1/stripe-simulator/charges
+    refunds-uri: https://sandbox.playtomic.io/v1/stripe-simulator/payments/{payment_id}/refunds
+
 ---
 spring.config.activate.on-profile: test
 spring:
-  data.mongodb:
-    host: localhost
-    port: 0
-    database: playtomic
-stripe.simulator.charges-uri: http://localhost:9999
-stripe.simulator.refunds-uri: http://localhost:9999
+  data:
+    mongodb:
+      host: localhost
+      port: 0
+      database: playtomic
+
+stripe:
+  simulator:
+    charges-uri: http://localhost:9999
+    refunds-uri: http://localhost:9999
